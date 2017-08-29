@@ -1,6 +1,7 @@
 # SUBTERRANEAN TORMENT
 
 **Subterranean Torment** is a roguelike game, in which you can only descend to lower levels of the dungeon, and there is no way back up, unless you manage to defeat the vile evil on the lowest level and obtain the coveted artifact, which will let you teleport back to the surface. *Or something like that*
+
 *It is still a work in progress*
 
 ![Main Menu](/screenshots/mainmenu.png)
@@ -30,6 +31,9 @@ So far it is not very different from the tutorial version :disappointed:
 **More screenshots**
 
 ![Level Up](/screenshots/levelup.png)
+Level up screen
 ![Character](/screenshots/character.png)
+Character screen
 ![Inventory](/screenshots/inventory.png)
+Inventory
 
