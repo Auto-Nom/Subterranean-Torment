@@ -31,9 +31,14 @@ So far it is not very different from the tutorial version :disappointed:
 **More screenshots**
 
 ![Level Up](/screenshots/levelup.png)
+
 Level up screen
+
 ![Character](/screenshots/character.png)
+
 Character screen
+
 ![Inventory](/screenshots/inventory.png)
+
 Inventory
 
