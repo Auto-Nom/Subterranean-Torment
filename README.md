@@ -1,12 +1,13 @@
 # SUBTERRANEAN TORMENT
 
 **Subterranean Torment** is a roguelike game, in which you can only descend to lower levels of the dungeon, and there is no way back up, unless you manage to defeat the vile evil on the lowest level and obtain the coveted artifact, which will let you teleport back to the surface. *Or something like that*
-*
+*It is still a work in progress*
 
 ![Main Menu](/screenshots/mainmenu.png)
 
 This game is based off of the python 3 libtcod tutorial from http://rogueliketutorials.com/
-So far it is not very different from the tutorial version :dissapointed:
+
+So far it is not very different from the tutorial version :disappointed:
 
 ![Game](/screenshots/game.png)
 
