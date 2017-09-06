@@ -24,7 +24,7 @@ So far it is not very different from the tutorial version :disappointed:
 * Maybe add a lighting system (torches and lanterns etc)
 * Add more stats than just attack and defense
 * Maybe make more intelligent monster AI
-* Add ability to save and view high scores
+* Add ability to view high scores
 * Add a panel which displays what you have equipped and status effects
 * Add some sort of food clock/sanity meter
 
