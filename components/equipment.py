@@ -131,8 +131,13 @@ class Equipment:
     def toggle_equip(self, equippable_entity):
         """
         Equip an item, or unequip it if it is already equipped
+
+        HP percentage stays the same when equipping/unequipping max_hp_bonus providing items
         """
         results = []
+
+        # keep hp percentage
+        hp_percent = self.owner.fighter.hp / self.owner.fighter.max_hp
 
         slot = equippable_entity.equippable.slot
 
@@ -247,6 +252,15 @@ class Equipment:
                 results.append({'equipped': equippable_entity})
         
         
+        # account for hp changes
+        self.owner.fighter.hp = int(self.owner.fighter.max_hp * hp_percent)
+        # don't let hp reach zero from unequipping an item
+        if self.owner.fighter.hp == 0:
+            self.owner.fighter.hp = 1
+
+        #if self.owner.fighter.hp > self.owner.fighter.max_hp:
+        #    self.owner.fighter.hp = self.owner.fighter.max_hp
+
         return results
 
 

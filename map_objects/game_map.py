@@ -142,6 +142,7 @@ class GameMap:
         item_chances = {
             'healing_potion': 35,
             'sword': from_dungeon_level([[5, 4]], self.dungeon_level),
+            'breastplate': from_dungeon_level([[5, 6]], self.dungeon_level),
             'shield': from_dungeon_level([[15, 8]], self.dungeon_level),
             'lightning_scroll': from_dungeon_level([[25, 4]], self.dungeon_level),
             'fireball_scroll': from_dungeon_level([[25, 6]], self.dungeon_level),
@@ -189,6 +190,9 @@ class GameMap:
                 elif item_choice == 'sword':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=3)
                     item = Entity(x, y, '/', libtcod.sky, 'Sword', equippable=equippable_component)
+                elif item_choice == 'breastplate':
+                    equippable_component = Equippable(EquipmentSlots.TORSO, max_hp_bonus=25)
+                    item = Entity(x, y, '[', libtcod.dark_grey, 'Breastplate', equippable=equippable_component)
                 elif item_choice == 'shield':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND, defense_bonus=1)
                     item = Entity(x, y, '(', libtcod.darker_orange, 'Shield', equippable=equippable_component)
