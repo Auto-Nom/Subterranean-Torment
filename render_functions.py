@@ -4,6 +4,7 @@ Functions for drawing and clearing the screen in Subterranean Torment
 
 import libtcodpy as libtcod
 
+from math import sqrt
 from enum import Enum
 
 from game_states import GameStates
@@ -24,6 +25,38 @@ def get_names_under_mouse(mouse, entities, fov_map):
     names = ', '.join(names)
 
     return names.capitalize()
+
+def distance(x1, y1, x2, y2):
+    """
+    returns distance between 2 points
+    """
+    return sqrt((x2 -x1) ** 2 + (y2 - y1) ** 2)
+
+def targeting_ui(mouse, fov_map, game_map, colors, con, radius=0):
+    (tx, ty) = (mouse.cx, mouse.cy)
+
+    for y in range(game_map.height):
+        for x in range(game_map.width):
+            visible = libtcod.map_is_in_fov(fov_map, x, y)
+            wall = game_map.tiles[x][y].block_sight
+
+            if visible:
+                if wall:
+                    libtcod.console_set_char_background(con, x, y, colors.get('light_wall'), libtcod.BKGND_SET)
+                else:
+                    if distance(x, y, tx, ty) <= radius:
+                        libtcod.console_set_char_background(con, x, y, libtcod.light_yellow, libtcod.BKGND_SET)
+                    else:
+                        libtcod.console_set_char_background(con, x, y, colors.get('light_ground'), libtcod.BKGND_SET)
+
+            elif game_map.tiles[x][y].explored:
+                if wall:
+                    libtcod.console_set_char_background(con, x, y, colors.get('dark_wall'), libtcod.BKGND_SET)
+
+                else:
+                    libtcod.console_set_char_background(con, x, y, colors.get('dark_ground'), libtcod.BKGND_SET)
+
+
 
 def render_bar(panel, x, y, total_width, name, value, maximum, bar_color, back_color):
     """

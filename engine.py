@@ -20,7 +20,7 @@ from input_handlers import handle_keys, handle_mouse, handle_main_menu
 from menus import main_menu, message_box
 from entity import get_blocking_entities_at_location
 from fov_functions import initialize_fov, recompute_fov
-from render_functions import clear_all, render_all
+from render_functions import clear_all, render_all, targeting_ui
 from death_functions import kill_player, kill_monster
 
 def main():
@@ -224,14 +224,19 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
         # targeting using mouse
         if game_state == GameStates.TARGETING:
+
+            # highlight targeted tiles
+            targeting_ui(mouse, fov_map, game_map, constants['colors'], con, radius=targeting_item.item.radius)
             if left_click:
                 target_x, target_y = left_click
                 
-                item_use_results = player.inventory.use(targeting_item, entities=entities, fov_map=fov_map, target_x=target_x, target_y=target_y)
+                item_use_results = player.inventory.use(targeting_item, entities=entities, fov_map=fov_map, target_x=target_x, target_y=target_y, radius=targeting_item.item.radius)
                 player_turn_results.extend(item_use_results)
+                fov_recompute = True
 
             elif right_click:
                 player_turn_results.append({'targeting_cancelled': True})
+                fov_recompute = True
 
         # exiting from menus or the game
         if exit:
