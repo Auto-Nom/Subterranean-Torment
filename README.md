@@ -17,11 +17,11 @@ This game is based off of the python 3 libtcod tutorial from http://rogueliketut
 *TODO:*
 
 * Add classes and races to choose from
-* Add more equipment slots and equippable items
+* Add more equippable items
 * Add different spells and potions
 * Add more monsters
-* Tweak the colours a bit, some things are hard to see
-* Add targeting UI and keyboard targeting
+* Tweak the colours a bit
+* Add keyboard targeting
 * Add bosses and an artifact at the bottom to obtain in order to win
 * Maybe add a lighting system (torches and lanterns etc)
 * Add more stats than just attack and defense
@@ -29,6 +29,7 @@ This game is based off of the python 3 libtcod tutorial from http://rogueliketut
 * Add ability to view high scores
 * Add a panel which displays what you have equipped and status effects
 * Add some sort of food clock/sanity meter
+* Improve performance
 
 **More screenshots**
 
