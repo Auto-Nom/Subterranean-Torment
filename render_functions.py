@@ -41,20 +41,11 @@ def targeting_ui(mouse, fov_map, game_map, colors, con, radius=0):
             wall = game_map.tiles[x][y].block_sight
 
             if visible:
-                if wall:
-                    libtcod.console_set_char_background(con, x, y, colors.get('light_wall'), libtcod.BKGND_SET)
-                else:
+                if not wall:
                     if distance(x, y, tx, ty) <= radius:
                         libtcod.console_set_char_background(con, x, y, libtcod.light_yellow, libtcod.BKGND_SET)
                     else:
                         libtcod.console_set_char_background(con, x, y, colors.get('light_ground'), libtcod.BKGND_SET)
-
-            elif game_map.tiles[x][y].explored:
-                if wall:
-                    libtcod.console_set_char_background(con, x, y, colors.get('dark_wall'), libtcod.BKGND_SET)
-
-                else:
-                    libtcod.console_set_char_background(con, x, y, colors.get('dark_ground'), libtcod.BKGND_SET)
 
 
 
