@@ -4,11 +4,13 @@
 
 *It is still a work in progress*
 
+**Usage:** `python3 engine.py`
+
+
 ![Main Menu](/screenshots/mainmenu.png)
 
 This game is based off of the python 3 libtcod tutorial from http://rogueliketutorials.com/
 
-So far it is not very different from the tutorial version :disappointed:
 
 ![Game](/screenshots/game.png)
 
