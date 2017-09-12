@@ -81,14 +81,14 @@ def get_constants():
 
 
 def get_game_variables(constants):
-    fighter_component = Fighter(hp=100, defense=1, power=2)
+    fighter_component = Fighter(strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_str_acc=50, base_agi_acc=50, base_dodge=5, base_hp=100, base_hp_regen=1, base_spellpower=50, base_magic_res=5, base_crit_chance=5, base_insane_resist=5, base_phys_res=5, base_damage=5, xp=0, base_accuacy_stat="strength")
     inventory_component = Inventory(26)
     level_component = Level()
     equipment_component = Equipment()
     player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, inventory=inventory_component, level=level_component, equipment=equipment_component)
     entities = [player]
 
-    equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
+    equippable_component = Equippable(EquipmentSlots.MAIN_HAND, strength_bonus=0, agility_bonus=0, constitution_bonus=0, intelligence_bonus=0, cunning_bonus=0, max_hp_bonus=0, str_acc_bonus=0, agi_acc_bonus=0, dodge_bonus=0, hp_regen_bonus=0, spellpower_bonus=0, magic_res_bonus=0, crit_chance_bonus=2, insane_res_bonus=0, phys_res_bonus=0, damage_bonus=5, accuracy_stat="strength"):
     dagger = Entity(0, 0, '-', libtcod.sky, 'Dagger', equippable=equippable_component)
     player.inventory.add_item(dagger)
     player.equipment.toggle_equip(dagger)

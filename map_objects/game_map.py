@@ -159,19 +159,19 @@ class GameMap:
                 monster_choice = random_choice_from_dict(monster_chances)
 
                 if monster_choice == 'goblin':
-                    fighter_component = Fighter(hp=20, defense=0, power=4, xp=35)
+                    fighter_component = Fighter(strength=8, agility=8, constitution=8, intelligence=8, cunning=8, base_hp=20, base_hp_regen=0, base_spellpower=5, base_damage=10, xp=35)
                     ai_component = BasicMonster()
 
                     monster = Entity(x, y, 'g', libtcod.dark_chartreuse, 'Goblin', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
                 
                 elif monster_choice == 'orc':
-                    fighter_component = Fighter(hp=25, defense=1, power=5, xp=45)
+                    fighter_component = Fighter(strength=10, agility=10, constitution=8, intelligence=8, cunning=8, base_hp=25, base_hp_regen=0, base_spellpower=5, base_damage=15, xp=45)
                     ai_component = BasicMonster()
 
                     monster = Entity(x, y, 'O', libtcod.desaturated_green, 'Orc', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
                 elif monster_choice == 'troll':
-                    fighter_component = Fighter(hp=30, defense=2, power=8, xp=100)
+                    fighter_component = Fighter(strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_hp=30, base_spellpower=10, base_damage=20, xp=10)
                     ai_component = BasicMonster()
                     monster = Entity(x, y, 'T', libtcod.darker_green, 'Troll', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
@@ -188,13 +188,13 @@ class GameMap:
                     item_component = Item(use_function=heal, amount=40)
                     item = Entity(x, y, '!', libtcod.purple, 'Healing Potion', render_order=RenderOrder.ITEM, item=item_component)
                 elif item_choice == 'sword':
-                    equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=3)
+                    equippable_component = Equippable(EquipmentSlots.MAIN_HAND, str_acc_bonus=5, crit_chance_bonus=1, damage_bonus=10, accuracy_stat="strength")
                     item = Entity(x, y, '/', libtcod.sky, 'Sword', equippable=equippable_component)
                 elif item_choice == 'breastplate':
-                    equippable_component = Equippable(EquipmentSlots.TORSO, max_hp_bonus=25)
+                    equippable_component = Equippable(EquipmentSlots.TORSO, constitution_bonus=2, max_hp_bonus=25, dodge_bonus=-5, phys_res_bonus=5)
                     item = Entity(x, y, '[', libtcod.dark_grey, 'Breastplate', equippable=equippable_component)
                 elif item_choice == 'shield':
-                    equippable_component = Equippable(EquipmentSlots.OFF_HAND, defense_bonus=1)
+                    equippable_component = Equippable(EquipmentSlots.OFF_HAND, magic_res_bonus=5, phys_res_bonus=10, damage_bonus=1, accuracy_stat="strength")
                     item = Entity(x, y, '(', libtcod.darker_orange, 'Shield', equippable=equippable_component)
                 elif item_choice == 'fireball_scroll':
                     item_component = Item(use_function=cast_fireball, targeting=True, targeting_message=Message('Left-click a target tile for the fireball, or right-click to cancel.', libtcod.light_cyan), damage=25, radius=3)

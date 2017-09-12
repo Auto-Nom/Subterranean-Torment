@@ -154,15 +154,17 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 
                 # attack if there is a target at destination
                 if target:
-                    attack_results = player.fighter.attack(target)
+                    attack_results = player.fighter.attack(target, player.fighter.accuracy_stat)
                     player_turn_results.extend(attack_results)
                 else:
                     player.move(dx, dy)
                     fov_recompute = True
 
+                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
         
         elif wait:
+            player.fighter.heal(player.fighter.hp_regen)
             game_state = GameStates.ENEMY_TURN
 
         # picking up objects
@@ -290,14 +292,17 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             if item_added:
                 entities.remove(item_added)
                 
+                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
 
             if item_consumed:
+                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
             
             if item_dropped:
                 entities.append(item_dropped)
 
+                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
 
             if equip:
@@ -313,6 +318,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                     if unequipped:
                         message_log.add_message(Message('You unequipped the {0}.'.format(unequipped.name)))
 
+                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
 
             if targeting:

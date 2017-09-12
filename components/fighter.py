@@ -13,7 +13,7 @@ class Fighter:
     Properties:
         strength, agility, constitution, intelligence, cunning, max_hp, strength_accuracy, agility_accuracy, dodge, hp_regen, spellpower, magic_resist, crit_chance, insanity_resist, physical_resist, damage
     """
-    def __init__(self, strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_str_acc=50, base_agi_acc=50, base_dodge=5, base_hp=100, base_hp_regen=1, base_spellpower=50, base_magic_res=5, base_crit_chance=5, base_insane_resist=5, base_phys_res=5, base_damage=5, xp=0):
+    def __init__(self, strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_str_acc=50, base_agi_acc=50, base_dodge=5, base_hp=100, base_hp_regen=1, base_spellpower=50, base_magic_res=5, base_crit_chance=5, base_insane_resist=5, base_phys_res=5, base_damage=5, xp=0, base_accuracy_stat="strength"):
         self.base_strength = strength
         self.base_agility = agility
         self.base_constitution = constitution
@@ -32,6 +32,7 @@ class Fighter:
         self.base_phys_res = base_phys_res
         self.base_damage = base_damage
         self.xp = xp
+        self.base_accuracy_stat = self.base_accuracy_stat
 
         self.hp = self.max_hp
 
@@ -202,6 +203,13 @@ class Fighter:
             bonus = 0
 
         return self.base_magic_res + bonus
+
+    @property
+    def accuracy_stat(self):
+        if self.owner and self.owner.equipment and self.owner.equipment.accuracy_stat:
+            return self.owner.equipment.accuracy_stat
+        else:
+            return self.base_accuracy_stat
 
     def take_damage(self, amount, physical=True, magical=False):
         results = []

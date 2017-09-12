@@ -21,9 +21,10 @@ class BasicMonster:
             if monster.distance_to(target) >= 2:
                 monster.move_astar(target, entities, game_map)
             elif target.fighter.hp >= 0:
-                attack_results = monster.fighter.attack(target)
+                attack_results = monster.fighter.attack(target, monster.accuracy_stat)
                 results.extend(attack_results)
 
+        monster.fighter.heal(monster.fighter.hp_regen)
         return results
 
 class ConfusedMonster:
@@ -50,6 +51,7 @@ class ConfusedMonster:
             self.owner.ai = self.previous_ai
             results.append({'message': Message('The {0} is no longer confused.'.format(self.owner.name), libtcod.red)})
 
+        self.owner.fighter.heal(self.owner.fighter.hp_regen)
         return results
 
 
