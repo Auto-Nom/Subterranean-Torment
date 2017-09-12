@@ -79,9 +79,11 @@ def main_menu(con, background_image, screen_width, screen_height):
 
 
 def level_up_menu(con, header, player, menu_width, screen_width, screen_height):
-    options = ['Constitution (+20hp, from {0})'.format(player.fighter.max_hp),
-            'Strength (+1 attack, from {0})'.format(player.fighter.power),
-            'Agility (+1 defense, from {0})'.format(player.fighter.defense)]
+    options = ['Base Strength +1 (from {0})'.format(player.fighter.base_strength),
+            'Base Agility +1 (from {0})'.format(player.fighter.base_agility),
+            'Base Constitution +1 (from {0})'.format(player.fighter.base_constitution),
+            'Base Intelligence +1 (from {0})'.format(player.fighter.base_intelligence),
+            'Base Cunning +1 (from {0})'.format(plater.fighter.base_cunning)]
 
     menu(con, header, options, menu_width, screen_width, screen_height)
 
@@ -101,9 +103,35 @@ def character_screen(player, character_screen_width, character_screen_height, sc
 
     libtcod.console_print_rect_ex(window, 0, 6, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Maximum HP: {0}'.format(player.fighter.max_hp))
 
-    libtcod.console_print_rect_ex(window, 0, 7, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Attack: {0}'.format(player.fighter.power))
+    libtcod.console_print_rect_ex(window, 0, 7, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Damage: {0}'.format(player.fighter.damage))
 
-    libtcod.console_print_rect_ex(window, 0, 8, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Defense: {0}'.format(player.fighter.defense))
+    libtcod.console_print_rect_ex(window, 0, 8, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Strength: {0}'.format(player.fighter.strength))
+
+    libtcod.console_print_rect_ex(window, 0, 9, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Agility: {0}'.format(player.fighter.agility))
+
+    libtcod.console_print_rect_ex(window, 0, 10, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Constitution: {0}'.format(player.fighter.constitution))
+
+    libtcod.console_print_rect_ex(window, 0, 11, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Intelligence: {0}'.format(player.fighter.intelligence))
+
+    libtcod.console_print_rect_ex(window, 0, 12, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Cunning: {0}'.format(player.fighter.cunning))
+
+    libtcod.console_print_rect_ex(window, 0, 13, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Strength Accuracy: {0}'.format(player.fighter.strength_accuracy))
+
+    libtcod.console_print_rect_ex(window, 0, 14, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Agility Accuracy: {0}'.format(player.fighter.agility_accuracy))
+
+    libtcod.console_print_rect_ex(window, 0, 15, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Dodge Chance: {0}'.format(player.fighter.dodge))
+
+    libtcod.console_print_rect_ex(window, 0, 16, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'HP Regen: {0}'.format(player.fighter.hp_regen))
+
+    libtcod.console_print_rect_ex(window, 0, 17, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Spellpower: {0}'.format(player.fighter.spellpower))
+
+    libtcod.console_print_rect_ex(window, 0, 18, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Magic Resistance: {0}'.format(player.fighter.magic_resist))
+
+    libtcod.console_print_rect_ex(window, 0, 19, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Crit Chance: {0}'.format(player.fighter.crit_chance))
+
+    libtcod.console_print_rect_ex(window, 0, 20, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Insanity Resist: {0}'.format(player.fighter.insanity_resist))
+
+    libtcod.console_print_rect_ex(window, 0, 21, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Physical Resist: {0}'.format(player.fighter.physical_resist))
 
     x = screen_width // 2 - character_screen_width // 2
     y = screen_height // 2 - character_screen_height // 2

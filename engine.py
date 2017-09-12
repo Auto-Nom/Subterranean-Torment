@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
  --------------------------
 =|  Subterranean Torment  |=
@@ -208,13 +209,16 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
         # levelling up
         if level_up:
-            if level_up == 'hp':
-                player.fighter.base_max_hp += 20
-                player.fighter.hp += 20
-            elif level_up == 'str':
-                player.fighter.base_power += 1
-            elif level_up == 'def':
-                player.fighter.base_defense += 1
+            if level_up == 'strength':
+                player.fighter.base_strength += 1
+            elif level_up == 'agility':
+                player.fighter.base_agility += 1
+            elif level_up == 'constitution':
+                player.fighter.base_constitution += 1
+            elif level_up == 'intelligence':
+                player.fighter.base_intelligence += 1
+            elif level_up == 'cunning':
+                player.fighter.base_cunning += 1
 
             game_state = previous_game_state
 

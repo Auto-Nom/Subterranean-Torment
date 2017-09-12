@@ -9,6 +9,10 @@ import libtcodpy as libtcod
 from game_messages import Message
 
 class Fighter:
+    """
+    Properties:
+        strength, agility, constitution, intelligence, cunning, max_hp, strength_accuracy, agility_accuracy, dodge, hp_regen, spellpower, magic_resist, crit_chance, insanity_resist, physical_resist, damage
+    """
     def __init__(self, strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_str_acc=50, base_agi_acc=50, base_dodge=5, base_hp=100, base_hp_regen=1, base_spellpower=50, base_magic_res=5, base_crit_chance=5, base_insane_resist=5, base_phys_res=5, base_damage=5, xp=0):
         self.base_strength = strength
         self.base_agility = agility
@@ -209,6 +213,8 @@ class Fighter:
             amount *= (1 - (self.magical_resist / 100))
 
         self.hp -= amount
+
+        results.append({'message': Message('{0} takes {1} damage after resistances'.format(self.owner.name.capitalize(), amount), libtcod.light_orange)})
         
         if self.hp <= 0:
             results.append({'dead': self.owner, 'xp': self.xp})
@@ -248,6 +254,8 @@ class Fighter:
             else:
                 results.append({'message': Message('{0} attacks {1} for {2} hit points.'.format(self.owner.name.capitalize(), target.name, str(dmg)), libtcod.white)})
                 results.extend(target.fighter.take_damage(dmg))
+        else:
+            results.append({'message': Message('{0} misses {1}.'.format(self.owner.name.capitalize(), target.name), libtcod.white)})
 
         return results
 

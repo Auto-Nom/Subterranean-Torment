@@ -78,11 +78,15 @@ def handle_level_up_menu(key):
         key_char = chr(key.c)
 
         if key_char == 'a':
-            return {'level_up': 'hp'}
+            return {'level_up': 'strength'}
         elif key_char == 'b':
-            return {'level_up': 'str'}
+            return {'level_up': 'agility'}
         elif key_char == 'c':
-            return {'level_up': 'def'}
+            return {'level_up': 'constitution'}
+        elif key_char == 'd':
+            return {'level_up': 'intelligence'}
+        elif key_char == 'e':
+            return {'level_up': 'cunning'}
 
     return {}
 
