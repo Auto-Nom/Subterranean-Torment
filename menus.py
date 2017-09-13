@@ -83,7 +83,7 @@ def level_up_menu(con, header, player, menu_width, screen_width, screen_height):
             'Base Agility +1 (from {0})'.format(player.fighter.base_agility),
             'Base Constitution +1 (from {0})'.format(player.fighter.base_constitution),
             'Base Intelligence +1 (from {0})'.format(player.fighter.base_intelligence),
-            'Base Cunning +1 (from {0})'.format(plater.fighter.base_cunning)]
+            'Base Cunning +1 (from {0})'.format(player.fighter.base_cunning)]
 
     menu(con, header, options, menu_width, screen_width, screen_height)
 

@@ -18,8 +18,33 @@ class Equipment:
         self.legs = legs
         self.feet = feet
 
-        self.slots = [self.main_hand, self.off_hand, self.head, self.neck. self.ring_finger_l, self.ring_finger_r, self.arms, self.torso, self.legs, self.feet]
+        #self.slots = [self.main_hand, self.off_hand, self.head, self.neck. self.ring_finger_l, self.ring_finger_r, self.arms, self.torso, self.legs, self.feet]
+        self.slots = self.get_valid_slots()
 
+    def get_valid_slots(self):
+        slots = []
+        if self.main_hand:
+            slots.append(self.main_hand)
+        if self.off_hand:
+            slots.append(self.off_hand)
+        if self.head:
+            slots.append(self.head)
+        if self.neck:
+            slots.append(self.neck)
+        if self.ring_finger_l:
+            slots.append(self.ring_finger_l)
+        if self.ring_finger_r:
+            slots.append(self.ring_finger_r)
+        if self.arms:
+            slots.append(self.arms)
+        if self.torso:
+            slots.append(self.torso)
+        if self.legs:
+            slots.append(self.legs)
+        if self.feet:
+            slots.append(self.feet)
+
+        return slots
 
     @property
     def strength_bonus(self):
@@ -317,13 +342,15 @@ class Equipment:
         
         
         # account for hp changes
-        self.owner.fighter.hp = int(self.owner.fighter.max_hp * hp_percent)
+        self.owner.fighter.hp = self.owner.fighter.max_hp * hp_percent
         # don't let hp reach zero from unequipping an item
         if self.owner.fighter.hp == 0:
             self.owner.fighter.hp = 1
 
         #if self.owner.fighter.hp > self.owner.fighter.max_hp:
         #    self.owner.fighter.hp = self.owner.fighter.max_hp
+
+        self.slots = self.get_valid_slots()
 
         return results
 

@@ -13,12 +13,12 @@ class Fighter:
     Properties:
         strength, agility, constitution, intelligence, cunning, max_hp, strength_accuracy, agility_accuracy, dodge, hp_regen, spellpower, magic_resist, crit_chance, insanity_resist, physical_resist, damage
     """
-    def __init__(self, strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_str_acc=50, base_agi_acc=50, base_dodge=5, base_hp=100, base_hp_regen=1, base_spellpower=50, base_magic_res=5, base_crit_chance=5, base_insane_resist=5, base_phys_res=5, base_damage=5, xp=0, base_accuracy_stat="strength"):
+    def __init__(self, strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_str_acc=50, base_agi_acc=50, base_dodge=5, base_hp=100, base_hp_regen=1, base_spellpower=50, base_magic_res=5, base_crit_chance=5, base_insane_res=5, base_phys_res=5, base_damage=5, xp=0, base_accuracy_stat="strength"):
         self.base_strength = strength
         self.base_agility = agility
         self.base_constitution = constitution
         self.base_intelligence = intelligence
-        self.base_cunning = cunnning
+        self.base_cunning = cunning
 
         self.base_str_acc = base_str_acc
         self.base_agi_acc = base_agi_acc
@@ -32,9 +32,10 @@ class Fighter:
         self.base_phys_res = base_phys_res
         self.base_damage = base_damage
         self.xp = xp
-        self.base_accuracy_stat = self.base_accuracy_stat
+        self.base_accuracy_stat = base_accuracy_stat
 
-        self.hp = self.max_hp
+        #self.hp = self.max_hp
+        self.hp = self.base_max_hp + ((self.base_constitution - 10) * 5)
 
     @property
     def strength(self):
@@ -79,7 +80,7 @@ class Fighter:
         else:
             bonus = 0
 
-        return self.base_cunnning + bonus
+        return self.base_cunning + bonus
 
     @property
     def max_hp(self):
@@ -147,7 +148,7 @@ class Fighter:
 
         stat_mod = (self.intelligence - 10) * 10
 
-        total = self.base_stat + stat_mod + bonus
+        total = self.base_spellpower + stat_mod + bonus
         if total < 0:
             total = 0
 
@@ -173,7 +174,7 @@ class Fighter:
 
         stat_mod = (self.cunning - 10) * 4
 
-        return self.crit_chance + stat_mod + bonus
+        return self.base_crit_chance + stat_mod + bonus
 
     @property
     def insanity_resist(self):
@@ -202,7 +203,7 @@ class Fighter:
         else:
             bonus = 0
 
-        return self.base_magic_res + bonus
+        return self.base_damage + bonus
 
     @property
     def accuracy_stat(self):

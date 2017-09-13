@@ -21,7 +21,7 @@ class BasicMonster:
             if monster.distance_to(target) >= 2:
                 monster.move_astar(target, entities, game_map)
             elif target.fighter.hp >= 0:
-                attack_results = monster.fighter.attack(target, monster.accuracy_stat)
+                attack_results = monster.fighter.attack(target, monster.fighter.accuracy_stat)
                 results.extend(attack_results)
 
         monster.fighter.heal(monster.fighter.hp_regen)
