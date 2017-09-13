@@ -23,12 +23,12 @@ This game is based off of the python 3 libtcod tutorial from http://rogueliketut
 * Tweak the colours a bit
 * Add keyboard targeting
 * Add bosses and an artifact at the bottom to obtain in order to win
-* Maybe add a lighting system (torches and lanterns etc)
-* Add more stats than just attack and defense
+* Add a lighting system (torches and lanterns etc.)
 * Maybe make more intelligent monster AI
 * Add ability to view high scores
 * Add a panel which displays what you have equipped and status effects
 * Add some sort of food clock/sanity meter
+* Work on game balance
 * Improve performance
 
 **More screenshots**
