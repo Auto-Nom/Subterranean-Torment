@@ -154,6 +154,9 @@ def handle_player_dead_keys(key):
     if key_char == 'i':
         return {'show_inventory': True}
 
+    elif key_char == 'c':
+        return {'show_character_screen': True}
+
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         return {'fullscreen': True}
 
