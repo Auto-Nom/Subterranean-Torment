@@ -219,7 +219,7 @@ class Fighter:
             amount *= (1- (self.physical_resist / 100))
         
         if magical:
-            amount *= (1 - (self.magical_resist / 100))
+            amount *= (1 - (self.magic_resist / 100))
 
         self.hp -= amount
 

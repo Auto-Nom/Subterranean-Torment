@@ -341,8 +341,10 @@ class Equipment:
                 results.append({'equipped': equippable_entity})
         
         
+        self.slots = self.get_valid_slots()
+
         # account for hp changes
-        self.owner.fighter.hp = self.owner.fighter.max_hp * hp_percent
+        self.owner.fighter.hp = round((self.owner.fighter.max_hp * hp_percent), 2)
         # don't let hp reach zero from unequipping an item
         if self.owner.fighter.hp == 0:
             self.owner.fighter.hp = 1
@@ -350,7 +352,6 @@ class Equipment:
         #if self.owner.fighter.hp > self.owner.fighter.max_hp:
         #    self.owner.fighter.hp = self.owner.fighter.max_hp
 
-        self.slots = self.get_valid_slots()
 
         return results
 

@@ -242,7 +242,6 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
             elif right_click:
                 player_turn_results.append({'targeting_cancelled': True})
-                fov_recompute = True
 
         # exiting from menus or the game
         if exit:
@@ -331,6 +330,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
             if targeting_cancelled:
                 game_state = previous_game_state
+                fov_recompute = True
                 message_log.add_message(Message('Targeting cancelled.'))
 
             if xp:
