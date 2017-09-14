@@ -33,6 +33,8 @@ def cast_lightning(*args, **kwargs):
     fov_map = kwargs.get('fov_map')
     damage = kwargs.get('damage')
     maximum_range = kwargs.get('maximum_range')
+    
+    damage *= (caster.fighter.spellpower/100)
 
     results = []
 
@@ -59,12 +61,15 @@ def cast_fireball(*args, **kwargs):
     """
     A fireball explodes with a specified radius, centered on a tile within the fov
     """
+    caster = args[0]
     entities = kwargs.get('entities')
     fov_map = kwargs.get('fov_map')
     damage = kwargs.get('damage')
     radius = kwargs.get('radius')
     target_x = kwargs.get('target_x')
     target_y = kwargs.get('target_y')
+
+    damage *= (caster.fighter.spellpower/100)
 
     results = []
 
