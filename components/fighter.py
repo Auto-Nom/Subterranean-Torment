@@ -242,17 +242,19 @@ class Fighter:
         dmg = self.damage
         crit = False
         
-        hit = randint(1, 100)
-        if hit < self.crit_chance:
+        hit = randint(0, 99)
+        if hit >= (100 - self.crit_chance):
             crit = True
 
         if accuracy_stat == "strength":
-            hit *= self.strength_accuracy
+            hit *= (self.strength_accuracy / 100)
         
         elif accuracy_stat == "agility":
-            hit *= self.agility_accuracy
+            hit *= (self.agility_accuracy / 100)
 
-        enemy_dodge = target.fighter.dodge * randint(1, 100)
+        enemy_dodge = randint(0, 99) * (target.fighter.dodge / 100)
+        if enemy_dodge < 0:
+            enemy_dodge = 0
 
         if crit or (hit > enemy_dodge):
 
