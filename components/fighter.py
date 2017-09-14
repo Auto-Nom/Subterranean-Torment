@@ -124,7 +124,12 @@ class Fighter:
 
         stat_mod = (self.agility - 10) * 4
 
-        return self.base_dodge + stat_mod + bonus
+
+        total = self.base_dodge + stat_mod + bonus
+        if total < 0:
+            total = 0
+
+        return total
 
     @property
     def hp_regen(self):
@@ -174,7 +179,11 @@ class Fighter:
 
         stat_mod = (self.cunning - 10) * 4
 
-        return self.base_crit_chance + stat_mod + bonus
+        total = self.base_crit_chance + stat_mod + bonus
+        if total < 0:
+            total = 0
+
+        return total
 
     @property
     def insanity_resist(self):
@@ -243,7 +252,7 @@ class Fighter:
         crit = False
         
         hit = randint(0, 99)
-        if hit >= (100 - self.crit_chance):
+        if hit >= (99 - self.crit_chance):
             crit = True
 
         if accuracy_stat == "strength":
@@ -253,8 +262,6 @@ class Fighter:
             hit *= (self.agility_accuracy / 100)
 
         enemy_dodge = randint(0, 99) * (target.fighter.dodge / 100)
-        if enemy_dodge < 0:
-            enemy_dodge = 0
 
         if crit or (hit > enemy_dodge):
 
