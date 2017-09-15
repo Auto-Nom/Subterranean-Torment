@@ -134,8 +134,8 @@ class GameMap:
         number_of_items = randint(0, max_items_per_room)
 
         monster_chances = {
-            'goblin': 80,
-            'orc': from_dungeon_level([[15, 2], [25, 4], [40, 6]], self.dungeon_level),
+            'kobold': 80,
+            'goblin': from_dungeon_level([[15, 2], [25, 4], [40, 6]], self.dungeon_level),
             'troll': from_dungeon_level([[10, 3], [30, 5], [60, 7]], self.dungeon_level)
         }
 
@@ -158,17 +158,17 @@ class GameMap:
             if not any([entity for entity in entities if entity.x == x and entity.y == y]):
                 monster_choice = random_choice_from_dict(monster_chances)
 
-                if monster_choice == 'goblin':
+                if monster_choice == 'kobold':
                     fighter_component = Fighter(strength=8, agility=8, constitution=8, intelligence=8, cunning=8, base_hp=20, base_hp_regen=0, base_spellpower=5, base_damage=10, xp=35)
                     ai_component = BasicMonster()
 
-                    monster = Entity(x, y, 'g', libtcod.dark_chartreuse, 'Goblin', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
+                    monster = Entity(x, y, 'k', libtcod.dark_chartreuse, 'Kobold', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
                 
-                elif monster_choice == 'orc':
+                elif monster_choice == 'goblin':
                     fighter_component = Fighter(strength=10, agility=10, constitution=8, intelligence=8, cunning=8, base_hp=25, base_hp_regen=0, base_spellpower=5, base_damage=15, xp=45)
                     ai_component = BasicMonster()
 
-                    monster = Entity(x, y, 'O', libtcod.desaturated_green, 'Orc', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
+                    monster = Entity(x, y, 'g', libtcod.desaturated_green, 'Goblin', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
                 elif monster_choice == 'troll':
                     fighter_component = Fighter(strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_hp=30, base_spellpower=10, base_damage=20, xp=100)
