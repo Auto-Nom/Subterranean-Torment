@@ -171,9 +171,13 @@ def handle_race_select_menu(key):
     if key_char == 'a':
         return {'race': 'Human'}
     elif key_char == 'b':
-        return {'race': 'Elf'}
+        return {'race': 'Orc'}
     elif key_char == 'c':
+        return {'race': 'Gnome'}
+    elif key_char == 'd':
         return {'race': 'Dwarf'}
+    elif key_char == 'e':
+        return {'race': 'Elf'}
     elif key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
 
@@ -183,10 +187,14 @@ def handle_role_select_menu(key):
     key_char = chr(key.c)
 
     if key_char == 'a':
-        return {'role': 'Fighter'}
+        return {'role': 'Ranger'}
     elif key_char == 'b':
-        return {'role': 'Mage'}
+        return {'role': 'Barbarian'}
     elif key_char == 'c':
+        return {'role': 'Fighter'}
+    elif key_char == 'd':
+        return {'role': 'Mage'}
+    elif key_char == 'e':
         return {'role': 'Rogue'}
     elif key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}

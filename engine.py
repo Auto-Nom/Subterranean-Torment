@@ -72,11 +72,11 @@ def main():
         
             elif new_game:
 
-                    race = None
-                    role = None
-                    game_state = GameStates.PLAYERS_TURN
+                race = None
+                role = None
+                game_state = GameStates.PLAYERS_TURN
 
-                    show_main_menu = False
+                show_main_menu = False
         
             elif load_saved_game:
                 try:
@@ -92,37 +92,42 @@ def main():
             elif exit_game:
                 break
         
-        # if show_main_menu is false, start game
+        # choose character's race and role, then start game
         else:
             libtcod.console_clear(con)
 
+            # choose race
             if not race:
-                character_selection_menu(con, 'Choose your race:', ["Human", "Elf", "Dwarf"], 25, constants['screen_width'], constants['screen_height'])
+                character_selection_menu(con, 'Choose your race:', ["Human", "Orc", "Gnome", "Dwarf", "Elf"], 25, constants['screen_width'], constants['screen_height'])
 
                 libtcod.console_flush()
                 choice = handle_race_select_menu(key)
                 race = choice.get('race')
                 back = choice.get('exit')
 
+                # go back to main menu
                 if back:
                     race = None
                     show_main_menu = True
 
+            # choose role
             elif race and not role:
             
                 libtcod.console_clear(con)
 
-                character_selection_menu(con, 'Choose your role:', ["Fighter", "Mage", "Rogue"], 25, constants['screen_width'], constants['screen_height'])
+                character_selection_menu(con, 'Choose your role:', ["Ranger", "Barbarian", "Fighter", "Mage", "Rogue"], 25, constants['screen_width'], constants['screen_height'])
 
                 libtcod.console_flush()
                 choice = handle_role_select_menu(key)
                 role = choice.get('role')
                 back = choice.get('exit')
 
+                # go back to race selection
                 if back:
                     race = None
                     role = None
 
+            # start new game
             if race and role:
                 player, entities, game_map, message_log, game_state = get_game_variables(constants, race, role)
 
