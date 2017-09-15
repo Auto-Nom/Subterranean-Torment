@@ -159,19 +159,19 @@ class GameMap:
                 monster_choice = random_choice_from_dict(monster_chances)
 
                 if monster_choice == 'kobold':
-                    fighter_component = Fighter(strength=8, agility=8, constitution=8, intelligence=8, cunning=8, base_hp=20, base_hp_regen=0, base_spellpower=5, base_damage=10, xp=35)
+                    fighter_component = Fighter('Kobold', 'Monster', strength=8, agility=8, constitution=8, intelligence=8, cunning=8, base_hp=20, base_hp_regen=0, base_spellpower=5, base_damage=10, xp=35)
                     ai_component = BasicMonster()
 
                     monster = Entity(x, y, 'k', libtcod.dark_chartreuse, 'Kobold', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
                 
                 elif monster_choice == 'goblin':
-                    fighter_component = Fighter(strength=10, agility=10, constitution=8, intelligence=8, cunning=8, base_hp=25, base_hp_regen=0, base_spellpower=5, base_damage=15, xp=45)
+                    fighter_component = Fighter('Goblin', 'Monster', strength=10, agility=10, constitution=8, intelligence=8, cunning=8, base_hp=25, base_hp_regen=0, base_spellpower=5, base_damage=15, xp=45)
                     ai_component = BasicMonster()
 
                     monster = Entity(x, y, 'g', libtcod.desaturated_green, 'Goblin', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
                 elif monster_choice == 'troll':
-                    fighter_component = Fighter(strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_hp=30, base_spellpower=10, base_damage=20, xp=100)
+                    fighter_component = Fighter('Troll', 'Monster', strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_hp=30, base_spellpower=10, base_damage=20, xp=100)
                     ai_component = BasicMonster()
                     monster = Entity(x, y, 'T', libtcod.darker_green, 'Troll', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
