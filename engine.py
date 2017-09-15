@@ -17,8 +17,8 @@ from game_states import GameStates
 
 from loader_functions.data_loaders import load_game, save_game
 from loader_functions.initialize_new_game import get_constants, get_game_variables
-from input_handlers import handle_keys, handle_mouse, handle_main_menu
-from menus import main_menu, message_box
+from input_handlers import handle_keys, handle_mouse, handle_main_menu, handle_race_select_menu, handle_role_select_menu
+from menus import main_menu, message_box, character_selection_menu
 from entity import get_blocking_entities_at_location
 from fov_functions import initialize_fov, recompute_fov
 from render_functions import clear_all, render_all, targeting_ui
@@ -71,15 +71,21 @@ def main():
                 show_load_error_message = False
         
             elif new_game:
-                player, entities, game_map, message_log, game_state = get_game_variables(constants)
-                game_state = GameStates.PLAYERS_TURN
 
-                show_main_menu = False
+                    race = None
+                    role = None
+                    game_state = GameStates.PLAYERS_TURN
+
+                    show_main_menu = False
         
             elif load_saved_game:
                 try:
                     player, entities, game_map, message_log, game_state = load_game()
                     show_main_menu = False
+                    play_game(player, entities, game_map, message_log, game_state, con, panel, constants)
+
+                    # show menu again after quitting game
+                    show_main_menu = True
                 except FileNotFoundError:
                     show_load_error_message = True
 
@@ -89,10 +95,41 @@ def main():
         # if show_main_menu is false, start game
         else:
             libtcod.console_clear(con)
-            play_game(player, entities, game_map, message_log, game_state, con, panel, constants)
 
-            # show menu again after quitting game
-            show_main_menu = True
+            if not race:
+                character_selection_menu(con, 'Choose your race:', ["Human", "Elf", "Dwarf"], 25, constants['screen_width'], constants['screen_height'])
+
+                libtcod.console_flush()
+                choice = handle_race_select_menu(key)
+                race = choice.get('race')
+                back = choice.get('exit')
+
+                if back:
+                    race = None
+                    show_main_menu = True
+
+            elif race and not role:
+            
+                libtcod.console_clear(con)
+
+                character_selection_menu(con, 'Choose your role:', ["Fighter", "Mage", "Rogue"], 25, constants['screen_width'], constants['screen_height'])
+
+                libtcod.console_flush()
+                choice = handle_role_select_menu(key)
+                role = choice.get('role')
+                back = choice.get('exit')
+
+                if back:
+                    race = None
+                    role = None
+
+            if race and role:
+                player, entities, game_map, message_log, game_state = get_game_variables(constants, race, role)
+
+                play_game(player, entities, game_map, message_log, game_state, con, panel, constants)
+
+                # show menu again after quitting game
+                show_main_menu = True
 
 
 def play_game(player, entities, game_map, message_log, game_state, con, panel, constants):

@@ -143,4 +143,8 @@ def character_screen(player, character_screen_width, character_screen_height, sc
 def message_box(con, header, width, screen_width, screen_height):
     menu(con, header, [], width, screen_width, screen_height)
 
+def character_selection_menu(con, header, options, width, screen_width, screen_height):
+
+    menu(con, header, options, width, screen_width, screen_height)
+
 

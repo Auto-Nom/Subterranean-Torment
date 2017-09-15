@@ -165,4 +165,32 @@ def handle_player_dead_keys(key):
 
     return {}
 
+def handle_race_select_menu(key):
+    key_char = chr(key.c)
+
+    if key_char == 'a':
+        return {'race': 'Human'}
+    elif key_char == 'b':
+        return {'race': 'Elf'}
+    elif key_char == 'c':
+        return {'race': 'Dwarf'}
+    elif key.vk == libtcod.KEY_ESCAPE:
+        return {'exit': True}
+
+    return {}
+
+def handle_role_select_menu(key):
+    key_char = chr(key.c)
+
+    if key_char == 'a':
+        return {'role': 'Fighter'}
+    elif key_char == 'b':
+        return {'role': 'Mage'}
+    elif key_char == 'c':
+        return {'role': 'Rogue'}
+    elif key.vk == libtcod.KEY_ESCAPE:
+        return {'exit': True}
+
+    return {}
+
 
