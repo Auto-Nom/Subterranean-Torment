@@ -11,7 +11,7 @@ from components.equipment import Equipment
 from components.equippable import Equippable
 from components.item import Item
 
-from item_functions import cast_confuse
+from item_functions import cast_confuse, ranged_attack
 from entity import Entity
 from equipment_slots import EquipmentSlots
 from game_messages import Message, MessageLog
@@ -265,6 +265,10 @@ def create_player(race, role):
         bow = Entity(0, 0, ')', libtcod.brass, 'Bow', equippable=equippable_component)
         player.inventory.add_item(bow)
         player.equipment.toggle_equip(bow)
+
+        item_component = Item(use_function=ranged_attack, targeting=True, targeting_message=Message('Left-click an enemy to target it, or right-click to cancel.', libtcod.light_cyan))
+        arrow = Entity(0, 0, '|', libtcod.brass, 'Arrow', render_order=RenderOrder.ITEM, item=item_component)
+        player.inventory.add_item(arrow)
 
     elif role == 'Barbarian':
         equippable_component = Equippable(EquipmentSlots.FEET, magic_res_bonus=1, crit_chance_bonus=1, phys_res_bonus=3, damage_bonus=2, accuracy_stat="strength")

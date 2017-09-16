@@ -174,6 +174,8 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
         pickup = action.get('pickup')
         show_inventory = action.get('show_inventory')
         drop_inventory = action.get('drop_inventory')
+        activate_inventory = action.get('activate_inventory')
+        equip_inventory = action.get('equip_inventory')
         inventory_index = action.get('inventory_index')
         take_stairs = action.get('take_stairs')
         level_up = action.get('level_up')
@@ -229,6 +231,14 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             previous_game_state = game_state
             game_state = GameStates.DROP_INVENTORY
 
+        if activate_inventory:
+            previous_game_state = game_state
+            game_state = GameStates.ACTIVATE_INVENTORY
+
+        if equip_inventory:
+            previous_game_state = game_state
+            game_state = GameStates.EQUIP_INVENTORY
+
         # inventory actions
         if inventory_index is not None and previous_game_state != GameStates.PLAYER_DEAD and inventory_index < len(player.inventory.items):
             item = player.inventory.items[inventory_index]
@@ -237,6 +247,11 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 player_turn_results.extend(player.inventory.use(item, entities=entities, fov_map=fov_map))
             elif game_state == GameStates.DROP_INVENTORY:
                 player_turn_results.extend(player.inventory.drop_item(item))
+            elif game_state == GameStates.ACTIVATE_INVENTORY:
+                player_turn_results.extend(player.inventory.activate(item, entities=entities, fov_map=fov_map))
+
+            elif game_state == GameStates.EQUIP_INVENTORY:
+                player_turn_results.extend(player.inventory.equip(item))
         
         # going down stairs
         if take_stairs and game_state == GameStates.PLAYERS_TURN:
@@ -287,7 +302,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
         # exiting from menus or the game
         if exit:
-            if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY, GameStates.CHARACTER_SCREEN):
+            if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY, GameStates.ACTIVATE_INVENTORY, GameStates.EQUIP_INVENTORY, GameStates.CHARACTER_SCREEN):
                 game_state = previous_game_state
             elif game_state == GameStates.TARGETING:
                 player_turn_results.append({'targeting_cancelled': True})
@@ -313,6 +328,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             dead_entity = player_turn_result.get('dead')
             item_added = player_turn_result.get('item_added')
             item_consumed = player_turn_result.get('consumed')
+            item_used = player_turn_result.get('used')
             item_dropped = player_turn_result.get('item_dropped')
             equip = player_turn_result.get('equip')
             targeting = player_turn_result.get('targeting')
@@ -337,6 +353,10 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 game_state = GameStates.ENEMY_TURN
 
             if item_consumed:
+                player.fighter.heal(player.fighter.hp_regen)
+                game_state = GameStates.ENEMY_TURN
+            
+            if item_used:
                 player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
             

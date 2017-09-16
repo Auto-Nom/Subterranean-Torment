@@ -24,6 +24,31 @@ def heal(*args, **kwargs):
 
     return results
 
+def ranged_attack(*args, **kwargs):
+    caster = args[0]
+    entities = kwargs.get('entities')
+    fov_map = kwargs.get('fov_map')
+    target_x = kwargs.get('target_x')
+    target_y = kwargs.get('target_y')
+
+    results = []
+
+    if not libtcod.map_is_in_fov(fov_map, target_x, target_y):
+        results.append({'message': Message('You cannot target a tile outside your field of view', libtcod.yellow)})
+        return results
+
+    for entity in entities:
+        if entity.x == target_x and entity.y == target_y and entity.ai:
+            results.append({'used': True, 'message': Message('You make a ranged attack on the {0}'.format(entity.name), libtcod.light_green)})
+            results.extend(caster.fighter.attack(entity, caster.fighter.accuracy_stat))
+            break
+    
+    else:
+        results.append({'message': Message('There is no targetable enemy at that location.', libtcod.yellow)})
+
+    return results
+
+
 def cast_lightning(*args, **kwargs):
     """
     A lightning bolt strikes the nearest visible enemy within a certain range

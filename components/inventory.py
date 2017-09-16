@@ -41,7 +41,7 @@ class Inventory:
             if equippable_component:
                 results.append({'equip': item_entity})
             else:
-                results.append({'Message': Message('The {0} cannot be used'.format(item_entity.name), libtcod.yellow)})
+                results.append({'message': Message('The {0} cannot be used'.format(item_entity.name), libtcod.yellow)})
 
         else:
             if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
@@ -55,6 +55,43 @@ class Inventory:
                         self.remove_item(item_entity)
 
                 results.extend(item_use_results)
+
+        return results
+
+    def activate(self, item_entity, **kwargs):
+        results = []
+
+        item_component = item_entity.item
+
+        if item_component.use_function is None:
+            results.append({'message': Message('The {0} cannot be used'.format(item_entity.name), libtcod.yellow)})
+
+        else:
+            if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
+                results.append({'targeting': item_entity})
+            else:
+                kwargs = {**item_component.function_kwargs, **kwargs}
+                item_use_results = item_component.use_function(self.owner, **kwargs)
+
+                for item_use_result in item_use_results:
+                    if item_use_result.get('consumed'):
+                        self.remove_item(item_entity)
+
+                results.extend(item_use_results)
+
+        return results
+
+    def equip(self, item_entity):
+        results = []
+
+        item_component = item_entity.item
+
+        equippable_component = item_entity.equippable
+
+        if equippable_component:
+            results.append({'equip': item_entity})
+        else:
+            results.append({'message': Message('The {0} is not an equippable item'.format(item_entity.name), libtcod.yellow)})
 
         return results
 
