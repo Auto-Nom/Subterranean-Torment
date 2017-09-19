@@ -172,6 +172,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
         move = action.get('move')
         wait = action.get('wait')
         pickup = action.get('pickup')
+        fire = action.get('fire')
         show_inventory = action.get('show_inventory')
         drop_inventory = action.get('drop_inventory')
         activate_inventory = action.get('activate_inventory')
@@ -253,6 +254,13 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             elif game_state == GameStates.EQUIP_INVENTORY:
                 player_turn_results.extend(player.inventory.equip(item))
         
+        if fire:
+            if player.equipment.main_hand:
+                player_turn_results.extend(player.inventory.activate(player.equipment.main_hand, entities=entities, fov_map=fov_map))
+
+            else:
+                message_log.add_message(Message("You have no item to use in your main hand.", libtcod.yellow))
+
         # going down stairs
         if take_stairs and game_state == GameStates.PLAYERS_TURN:
             for entity in entities:
