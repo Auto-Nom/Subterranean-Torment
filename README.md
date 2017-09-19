@@ -9,19 +9,23 @@
 **Controls:**
 
 vi-keys for movement:
-**
-        y  k  u
-         \ | / 
-        h- . -l
-         / | \ 
-        b  j  n
-**
+
+**y  k  u
+
+ \ | / 
+
+h- . -l
+
+ / | \ 
+
+b  j  n**
+
 
 **z** - Wait a turn
 
 **g** - Pickup an item
 
-**i** - Inventory
+**i** - Show inventory
 
 **e** - Equip item from inventory
 
@@ -39,7 +43,7 @@ vi-keys for movement:
 
 **Escape** - Exit game/menu or cancel targeting
 
-Targeting is done using the mouse only at the moment
+Targeting is done using the mouse only at the moment.
 
 
 ![Main Menu](/screenshots/mainmenu.png)
