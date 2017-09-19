@@ -12,7 +12,7 @@ vi-keys for movement:
 
 **y  k  u**  
    \ | /  
-**h**- . -**l**  
+**h**-.-**l**  
    / | \  
 **b  j  n**
 
