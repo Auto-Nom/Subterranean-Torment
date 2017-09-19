@@ -12,7 +12,7 @@ from game_messages import Message
 from entity import Entity
 
 from components.fighter import Fighter
-from components.ai import BasicMonster
+from components.ai import BasicMonster, BossMonster
 from components.equipment import EquipmentSlots
 from components.equippable import Equippable
 from components.item import Item
@@ -100,9 +100,18 @@ class GameMap:
                 rooms.append(new_room)
                 num_rooms += 1
     
-        stairs_component = Stairs(self.dungeon_level + 1)
-        down_stairs = Entity(center_of_last_room_x, center_of_last_room_y, '>', libtcod.white, 'Stairs', render_order=RenderOrder.STAIRS, stairs=stairs_component)
-        entities.append(down_stairs)
+        if self.dungeon_level < 1:
+            stairs_component = Stairs(self.dungeon_level + 1)
+            down_stairs = Entity(center_of_last_room_x, center_of_last_room_y, '>', libtcod.white, 'Stairs', render_order=RenderOrder.STAIRS, stairs=stairs_component)
+            entities.append(down_stairs)
+        else:
+
+            fighter_component = Fighter('Human', 'Boss', strength=18, agility=18, constitution=18, intelligence=18, cunning=18, base_hp=100, base_spellpower=100, base_damage=50, xp=0)
+            ai_component = BossMonster()
+            monster = Entity(center_of_last_room_x, center_of_last_room_y, 'B', libtcod.darker_red, 'Boss', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
+
+            entities.append(monster)
+
 
         
     def create_room(self, room):

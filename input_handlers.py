@@ -14,7 +14,7 @@ def handle_keys(key, game_state):
     """
     if game_state == GameStates.PLAYERS_TURN:
         return handle_player_turn_keys(key)
-    elif game_state == GameStates.PLAYER_DEAD:
+    elif game_state in (GameStates.PLAYER_DEAD, GameStates.VICTORY):
         return handle_player_dead_keys(key)
     elif game_state == GameStates.TARGETING:
         return handle_targeting_keys(key)

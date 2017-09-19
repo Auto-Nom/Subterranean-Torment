@@ -22,7 +22,7 @@ from menus import main_menu, message_box, character_selection_menu
 from entity import get_blocking_entities_at_location
 from fov_functions import initialize_fov, recompute_fov
 from render_functions import clear_all, render_all, targeting_ui
-from death_functions import kill_player, kill_monster
+from death_functions import kill_player, kill_monster, kill_boss
 
 def main():
     """
@@ -241,7 +241,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             game_state = GameStates.EQUIP_INVENTORY
 
         # inventory actions
-        if inventory_index is not None and previous_game_state != GameStates.PLAYER_DEAD and inventory_index < len(player.inventory.items):
+        if inventory_index is not None and previous_game_state not in (GameStates.PLAYER_DEAD, GameStates.VICTORY) and inventory_index < len(player.inventory.items):
             item = player.inventory.items[inventory_index]
 
             if game_state == GameStates.SHOW_INVENTORY:
@@ -314,7 +314,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 game_state = previous_game_state
             elif game_state == GameStates.TARGETING:
                 player_turn_results.append({'targeting_cancelled': True})
-            elif game_state == GameStates.PLAYER_DEAD:
+            elif game_state in (GameStates.PLAYER_DEAD, GameStates.VICTORY):
                 # delete save file if player exits after dying
                 if os.path.isfile('savegame.dat'):
                     os.remove('savegame.dat')
@@ -349,6 +349,8 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             if dead_entity:
                 if dead_entity == player:
                     message, game_state = kill_player(dead_entity)
+                elif dead_entity.name == 'Boss':
+                    message, game_state = kill_boss(dead_entity)
                 else:
                     message = kill_monster(dead_entity)
 
@@ -433,10 +435,10 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
                             message_log.add_message(message)
 
-                            if game_state == GameStates.PLAYER_DEAD:
+                            if game_state in (GameStates.PLAYER_DEAD, GameStates.VICTORY):
                                 break
                     
-                    if game_state == GameStates.PLAYER_DEAD:
+                    if game_state in (GameStates.PLAYER_DEAD, GameStates.VICTORY):
                         break
 
             else:

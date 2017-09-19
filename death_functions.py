@@ -28,4 +28,17 @@ def kill_monster(monster):
 
     return death_message
 
+def kill_boss(monster):
+    death_message = Message('You killed {0}!'.format(monster.name.capitalize()), libtcod.flame) 
+
+    monster.char = '%'
+    monster.color = libtcod.darker_red
+    monster.blocks = False
+    monster.fighter = None
+    monster.ai = None
+    monster.name = 'remains of ' + monster.name
+    monster.render_order = RenderOrder.CORPSE
+
+    return death_message, GameStates.VICTORY
+
 

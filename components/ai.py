@@ -27,6 +27,25 @@ class BasicMonster:
         monster.fighter.heal(monster.fighter.hp_regen)
         return results
 
+class BossMonster:
+    """
+    Boss monster behaviour, same as BasicMonster for now
+    """
+    def take_turn(self, target, fov_map, game_map, entities):
+        results = []
+
+        monster = self.owner
+        if libtcod.map_is_in_fov(fov_map, monster.x, monster.y):
+
+            if monster.distance_to(target) >= 2:
+                monster.move_astar(target, entities, game_map)
+            elif target.fighter.hp >= 0:
+                attack_results = monster.fighter.attack(target, monster.fighter.accuracy_stat)
+                results.extend(attack_results)
+
+        monster.fighter.heal(monster.fighter.hp_regen)
+        return results
+
 class ConfusedMonster:
     """
     Behaviour of a monster that is confused for a number of turns

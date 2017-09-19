@@ -15,5 +15,6 @@ class GameStates(Enum):
     CHARACTER_SCREEN = 8
     ACTIVATE_INVENTORY = 9
     EQUIP_INVENTORY = 10
+    VICTORY = 11
 
 
