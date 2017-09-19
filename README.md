@@ -10,15 +10,15 @@
 
 vi-keys for movement:
 
-**y  k  u
+**y  k  u**
 
  \ | / 
 
-h- . -l
+**h**- . -**l**
 
  / | \ 
 
-b  j  n**
+**b  j  n**
 
 
 **z** - Wait a turn
