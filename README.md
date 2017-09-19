@@ -6,6 +6,41 @@
 
 **Usage:** `python3 engine.py`
 
+**Controls:**
+
+vi-keys for movement:
+**
+        y  k  u
+         \ | / 
+        h- . -l
+         / | \ 
+        b  j  n
+**
+
+**z** - Wait a turn
+
+**g** - Pickup an item
+
+**i** - Inventory
+
+**e** - Equip item from inventory
+
+**d** - Drop item from inventory
+
+**a** - Activate item from inventory
+
+**f** - Fire/activate item equipped in main hand
+
+**c** - Show character info
+
+**Enter** - Go down stairs
+
+**Alt+Enter** - Toggle fullscreen
+
+**Escape** - Exit game/menu or cancel targeting
+
+Targeting is done using the mouse only at the moment
+
 
 ![Main Menu](/screenshots/mainmenu.png)
 
@@ -16,12 +51,11 @@ This game is based off of the python 3 libtcod tutorial from http://rogueliketut
 
 *TODO:*
 
-* Add classes and races to choose from
 * Add more equippable items
-* Add different spells and potions
+* Add more spells and potions
 * Add more monsters
 * Tweak the colours a bit
-* Add keyboard targeting
+* Add keyboard targeting, and auto-target nearest enemy
 * Add bosses and an artifact at the bottom to obtain in order to win
 * Add a lighting system (torches and lanterns etc.)
 * Maybe make more intelligent monster AI
