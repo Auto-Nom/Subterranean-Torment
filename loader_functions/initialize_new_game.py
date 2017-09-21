@@ -217,7 +217,7 @@ def create_player(race, role):
         player_base_accuracy_stat = "agility"
 
 
-    fighter_component = Fighter(race, role, strength=player_str, agility=player_agi, constitution=player_con, intelligence=player_int, cunning=player_cun, base_str_acc=player_base_str_acc, base_agi_acc=player_base_agi_acc, base_dodge=player_base_dodge, base_hp=player_base_hp, base_hp_regen=player_base_hp_regen, base_spellpower=player_base_spellpower, base_magic_res=player_base_magic_res, base_crit_chance=player_base_crit, base_insane_res=player_base_insane_res, base_phys_res=player_base_phys_res, base_damage=player_base_damage, xp=0, base_accuracy_stat=player_base_accuracy_stat)
+    fighter_component = Fighter(race, role, strength=player_str, agility=player_agi, constitution=player_con, intelligence=player_int, cunning=player_cun, base_str_acc=player_base_str_acc, base_agi_acc=player_base_agi_acc, base_dodge=player_base_dodge, base_hp=player_base_hp, base_hp_regen=player_base_hp_regen, base_spellpower=player_base_spellpower, base_magic_res=player_base_magic_res, base_crit_chance=player_base_crit, base_insane_res=player_base_insane_res, base_phys_res=player_base_phys_res, base_damage=player_base_damage, xp=0, insanity=0, base_accuracy_stat=player_base_accuracy_stat)
     inventory_component = Inventory(26)
     level_component = Level()
     equipment_component = Equipment()

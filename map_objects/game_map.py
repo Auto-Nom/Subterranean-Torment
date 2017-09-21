@@ -100,7 +100,7 @@ class GameMap:
                 rooms.append(new_room)
                 num_rooms += 1
     
-        if self.dungeon_level < 1:
+        if self.dungeon_level < 10:
             stairs_component = Stairs(self.dungeon_level + 1)
             down_stairs = Entity(center_of_last_room_x, center_of_last_room_y, '>', libtcod.white, 'Stairs', render_order=RenderOrder.STAIRS, stairs=stairs_component)
             entities.append(down_stairs)

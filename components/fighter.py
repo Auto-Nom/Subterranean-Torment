@@ -13,7 +13,7 @@ class Fighter:
     Properties:
         strength, agility, constitution, intelligence, cunning, max_hp, strength_accuracy, agility_accuracy, dodge, hp_regen, spellpower, magic_resist, crit_chance, insanity_resist, physical_resist, damage
     """
-    def __init__(self, race, role, strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_str_acc=50, base_agi_acc=50, base_dodge=5, base_hp=100, base_hp_regen=1, base_spellpower=50, base_magic_res=5, base_crit_chance=5, base_insane_res=5, base_phys_res=5, base_damage=5, xp=0, base_accuracy_stat="strength"):
+    def __init__(self, race, role, strength=10, agility=10, constitution=10, intelligence=10, cunning=10, base_str_acc=50, base_agi_acc=50, base_dodge=5, base_hp=100, base_hp_regen=1, base_spellpower=50, base_magic_res=5, base_crit_chance=5, base_insane_res=5, base_phys_res=5, base_damage=5, xp=0, insanity=0, base_accuracy_stat="strength"):
         self.base_strength = strength
         self.base_agility = agility
         self.base_constitution = constitution
@@ -31,11 +31,12 @@ class Fighter:
         self.base_insane_res = base_insane_res
         self.base_phys_res = base_phys_res
         self.base_damage = base_damage
-        self.xp = xp
         self.base_accuracy_stat = base_accuracy_stat
         self.race = race
         self.role = role
 
+        self.xp = xp
+        self.insanity = insanity
         #self.hp = self.max_hp
         self.hp = self.base_max_hp + ((self.base_constitution - 10) * 5)
 
@@ -248,6 +249,33 @@ class Fighter:
 
         if self.hp >= self.max_hp:
             self.hp = self.max_hp
+
+    def increase_insanity(self, amount):
+        results = []
+
+        amount *= (1 - (self.insanity_resist / 100))
+
+        total = round((self.insanity + amount), 2)
+        self.insanity = total
+
+        results.append({'message': Message("{0}'s insanity increases by {1} after resistances".format(self.owner.name.capitalize(), round(amount, 2)), libtcod.dark_orange)})
+        
+        if self.insanity >= 200:
+            results.append({'dead': self.owner, 'xp': self.xp, 'message': Message("{0} had a heart-attack due to stress!".format(self.owner.name.capitalize()), libtcod.dark_red)})
+
+        elif self.insanity >= 100:
+            results.append({'insane': self.owner})
+
+        return results
+
+    def decrease_insanity(self, amount):
+        results = []
+        
+        total = round((self.insanity - amount), 2)
+        self.isanity = total
+
+        if self.insanity <= 0:
+            self.insanity = 0
 
     def attack(self, target, accuracy_stat):
         results = []

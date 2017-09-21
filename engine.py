@@ -9,6 +9,7 @@ A roguelike game based off of the libtcod tutorial from http://rogueliketutorial
 """
 
 import os
+from random import randint
 
 import libtcodpy as libtcod
 
@@ -205,11 +206,9 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                     player.move(dx, dy)
                     fov_recompute = True
 
-                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
         
         elif wait:
-            player.fighter.heal(player.fighter.hp_regen)
             game_state = GameStates.ENEMY_TURN
 
         # picking up objects
@@ -359,21 +358,17 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             if item_added:
                 entities.remove(item_added)
                 
-                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
 
             if item_consumed:
-                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
             
             if item_used:
-                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
             
             if item_dropped:
                 entities.append(item_dropped)
 
-                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
 
             if equip:
@@ -389,7 +384,6 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                     if unequipped:
                         message_log.add_message(Message('You unequipped the {0}.'.format(unequipped.name)))
 
-                player.fighter.heal(player.fighter.hp_regen)
                 game_state = GameStates.ENEMY_TURN
 
             if targeting:
@@ -416,6 +410,26 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
         # enemy turns
         if game_state == GameStates.ENEMY_TURN:
+            player.fighter.heal(player.fighter.hp_regen)
+            if randint(0, constants["fov_radius"]) == 0:
+                insanity_results = player.fighter.increase_insanity(game_map.dungeon_level)
+                for insanity_result in insanity_results:
+                    dead_entity = insanity_result.get('dead')
+
+                    if dead_entity:
+                        if dead_entity == player:
+                            message, game_state = kill_player(dead_entity)
+                        else:
+                            message = kill_monster(dead_entity)
+
+                        message_log.add_message(Message("{0} had a heart-attack due to stress!".format(dead_entity.name.capitalize()), libtcod.dark_red))
+
+                        message_log.add_message(message)
+
+
+                        if game_state in (GameStates.PLAYER_DEAD, GameStates.VICTORY):
+                            break
+
             for entity in entities:
                 if entity.ai:
                     enemy_turn_results = entity.ai.take_turn(player, fov_map, game_map, entities)
