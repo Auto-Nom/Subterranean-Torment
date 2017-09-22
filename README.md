@@ -33,6 +33,10 @@ vi-keys for movement:
 
 **c** - Show character info
 
+**q** - Decrease lantern brightness
+
+**w** - Increase lantern brightness
+
 **Enter** - Go down stairs
 
 **Alt+Enter** - Toggle fullscreen
@@ -56,13 +60,13 @@ This game is based off of the python 3 libtcod tutorial from http://rogueliketut
 * Add more monsters
 * Tweak the colours a bit
 * Add keyboard targeting, and auto-target nearest enemy
-* Add bosses and an artifact at the bottom to obtain in order to win
-* Add a lighting system (torches and lanterns etc.)
-* Maybe make more intelligent monster AI
+* Add ways of getting xp other than killing monsters
+* Maybe make an artifact guarded by the boss, to win without fighting?
+* Make more intelligent monster AI
 * Add ability to view high scores
 * Add a panel which displays what you have equipped and status effects
-* Add some sort of food clock/sanity meter
-* Work on game balance
+* Improve lantern and sanity systems
+* Work on game balance and polish
 * Improve performance
 
 **More screenshots**
