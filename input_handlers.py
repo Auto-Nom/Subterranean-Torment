@@ -139,6 +139,12 @@ def handle_player_turn_keys(key):
     elif key_char == 'e':
         return {'equip_inventory': True}
 
+    elif key_char == 'w':
+        return {'increase_brightness': True}
+
+    elif key_char == 'q':
+        return {'decrease_brightness': True}
+
     elif key.vk == libtcod.KEY_ENTER:    # can't get '>' to work?
         return {'take_stairs': True}
 

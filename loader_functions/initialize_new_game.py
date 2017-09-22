@@ -10,6 +10,7 @@ from components.level import Level
 from components.equipment import Equipment
 from components.equippable import Equippable
 from components.item import Item
+from components.lantern import Lantern
 
 from item_functions import cast_confuse, ranged_attack
 from entity import Entity
@@ -221,7 +222,8 @@ def create_player(race, role):
     inventory_component = Inventory(26)
     level_component = Level()
     equipment_component = Equipment()
-    player = Entity(0, 0, '@', player_color, 'Player', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, inventory=inventory_component, level=level_component, equipment=equipment_component)
+    lantern_component = Lantern()
+    player = Entity(0, 0, '@', player_color, 'Player', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, inventory=inventory_component, level=level_component, equipment=equipment_component, lantern=lantern_component)
  
 
     # Equipment

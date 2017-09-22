@@ -146,6 +146,8 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
     fov_map = initialize_fov(game_map)
 
+    fov_radius = player.lantern.brightness
+
     key = libtcod.Key()
     mouse = libtcod.Mouse()
 
@@ -157,7 +159,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS | libtcod.EVENT_MOUSE, key, mouse)
 
         if fov_recompute:
-            recompute_fov(fov_map, player.x, player.y, constants['fov_radius'], constants['fov_light_walls'], constants['fov_algorithm'])
+            recompute_fov(fov_map, player.x, player.y, fov_radius, constants['fov_light_walls'], constants['fov_algorithm'])
 
         render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, message_log, constants['screen_width'], constants['screen_height'], constants['bar_width'], constants['panel_height'], constants['panel_y'], mouse, constants['colors'], game_state)
 
@@ -180,6 +182,8 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
         equip_inventory = action.get('equip_inventory')
         inventory_index = action.get('inventory_index')
         take_stairs = action.get('take_stairs')
+        increase_brightness = action.get('increase_brightness')
+        decrease_brightness = action.get('decrease_brightness')
         level_up = action.get('level_up')
         show_character_screen = action.get('show_character_screen')
         exit = action.get('exit')
@@ -273,6 +277,11 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             else:
                 message_log.add_message(Message('There are no stairs here', libtcod.yellow))
 
+        if increase_brightness and game_state == GameStates.PLAYERS_TURN:
+            player_turn_results.extend(player.lantern.increase_brightness(1))
+        if decrease_brightness and game_state == GameStates.PLAYERS_TURN:
+            player_turn_results.extend(player.lantern.decrease_brightness(1))
+
         # levelling up
         if level_up:
             if level_up == 'strength':
@@ -341,6 +350,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
             targeting = player_turn_result.get('targeting')
             targeting_cancelled = player_turn_result.get('targeting_cancelled')
             xp = player_turn_result.get('xp')
+            brightness = player_turn_result.get('brightness')
 
             if message:
                 message_log.add_message(message)
@@ -408,10 +418,34 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                     previous_game_state = game_state
                     game_state = GameStates.LEVEL_UP
 
-        # enemy turns
+            # libtcod fov radius treats 0 as infinite radius
+            if brightness:
+                fov_radius = brightness
+                fov_recompute = True
+                game_state = GameStates.ENEMY_TURN
+
+        # end of player turn and then enemy turns
         if game_state == GameStates.ENEMY_TURN:
             player.fighter.heal(player.fighter.hp_regen)
-            if randint(0, constants["fov_radius"]) == 0:
+            if player.lantern.fuel > 0:
+                lantern_results = player.lantern.decrease_fuel(player.lantern.brightness / 10)
+                for lantern_result in lantern_results:
+                    message = lantern_result.get('message')
+                    brightness = lantern_result.get('brightness')
+
+                    if message:
+                        message_log.add_message(message)
+                    
+                    if brightness:
+                        fov_radius = brightness
+                        fov_recompute = True
+                    
+                    if brightness == 0:
+                        fov_radius = 1
+                        fov_recompute = True
+
+
+            if randint(0, player.lantern.brightness) == 0:
                 insanity_results = player.fighter.increase_insanity(game_map.dungeon_level)
                 for insanity_result in insanity_results:
                     dead_entity = insanity_result.get('dead')

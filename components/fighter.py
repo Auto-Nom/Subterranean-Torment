@@ -272,10 +272,14 @@ class Fighter:
         results = []
         
         total = round((self.insanity - amount), 2)
-        self.isanity = total
+        self.insanity = total
 
         if self.insanity <= 0:
             self.insanity = 0
+
+        results.append({'message': Message("{0}'s insanity decreases by {1}".format(self.owner.name.capitalize(), round(amount, 2)), libtcod.light_orange)})
+
+        return results
 
     def attack(self, target, accuracy_stat):
         results = []
