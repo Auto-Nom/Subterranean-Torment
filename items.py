@@ -13,12 +13,13 @@ from components.equipment import EquipmentSlots
 from components.equippable import Equippable
 
 from random_utils import random_choice_from_dict, from_dungeon_level
-from item_functions import heal, cast_lightning, cast_fireball, cast_confuse, add_oil
+from item_functions import heal, cast_lightning, cast_fireball, cast_confuse, add_oil, heal_insanity
 
 def choose_item(x, y, dungeon_level):
     item_chances = {
         'healing_potion': 35,
-        'oil': 40,
+        'oil': 35,
+        'laudanum': from_dungeon_level([[30, 2], [40, 4], [50, 6]], dungeon_level),
         'sword': from_dungeon_level([[5, 4]], dungeon_level),
         'breastplate': from_dungeon_level([[5, 6]], dungeon_level),
         'shield': from_dungeon_level([[15, 8]], dungeon_level),
@@ -36,6 +37,9 @@ def choose_item(x, y, dungeon_level):
     elif item_choice == 'oil':
         item_component = Item(use_function=add_oil, amount=50)
         item = Entity(x, y, '0', libtcod.amber, 'Oil: 50', render_order=RenderOrder.ITEM, item=item_component)
+    elif item_choice == 'laudanum':
+        item_component = Item(use_function=heal_insanity, amount=30)
+        item = Entity(x, y, 'i', libtcod.dark_sky, 'Laudanum', render_order=RenderOrder.ITEM, item=item_component)
     elif item_choice == 'sword':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND, str_acc_bonus=5, crit_chance_bonus=1, damage_bonus=10, accuracy_stat="strength")
         item = Entity(x, y, '/', libtcod.sky, 'Sword', equippable=equippable_component)

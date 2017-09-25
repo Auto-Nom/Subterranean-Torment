@@ -428,7 +428,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
         if game_state == GameStates.ENEMY_TURN:
             player.fighter.heal(player.fighter.hp_regen)
             if player.lantern.fuel > 0:
-                lantern_results = player.lantern.decrease_fuel(player.lantern.brightness / 10)
+                lantern_results = player.lantern.decrease_fuel(player.lantern.brightness / 20)
                 for lantern_result in lantern_results:
                     message = lantern_result.get('message')
                     brightness = lantern_result.get('brightness')
@@ -446,7 +446,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
 
             if randint(0, player.lantern.brightness) == 0:
-                insanity_results = player.fighter.increase_insanity(game_map.dungeon_level)
+                insanity_results = player.fighter.increase_insanity(game_map.dungeon_level/2)
                 for insanity_result in insanity_results:
                     dead_entity = insanity_result.get('dead')
 

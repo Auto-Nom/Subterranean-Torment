@@ -44,6 +44,22 @@ def add_oil(*args, **kwargs):
 
     return results
 
+def heal_insanity(*args, **kwargs):
+    """
+    Decreases insanity level
+    """
+    entity = args[0]
+    amount = kwargs.get('amount')
+
+    results = []
+
+    if entity.fighter.insanity == 0:
+        results.append({'consumed':False, 'message': Message('You are perfectly sane')})
+    else:
+        entity.fighter.decrease_insanity(amount)
+        results.append({'consumed': True, 'message': Message('Your mind starts to clear', libtcod.light_sky)})
+
+    return results
 
 def ranged_attack(*args, **kwargs):
     caster = args[0]

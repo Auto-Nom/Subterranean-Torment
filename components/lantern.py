@@ -50,7 +50,7 @@ class Lantern:
 
         self.fuel = round((self.fuel + amount), 2)
         if self.fuel >= self.max_fuel:
-            leftover = self.fuel - self.max_fuel
+            leftover = round((self.fuel - self.max_fuel), 2)
             self.fuel = self.max_fuel
             results.append({'message': Message('The lantern cannot hold any more fuel.', libtcod.dark_amber)})
             if leftover:

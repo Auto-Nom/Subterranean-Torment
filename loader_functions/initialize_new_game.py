@@ -12,7 +12,7 @@ from components.equippable import Equippable
 from components.item import Item
 from components.lantern import Lantern
 
-from item_functions import cast_confuse, ranged_attack
+from item_functions import cast_confuse, ranged_attack, add_oil
 from entity import Entity
 from equipment_slots import EquipmentSlots
 from game_messages import Message, MessageLog
@@ -302,6 +302,10 @@ def create_player(race, role):
     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, strength_bonus=0, agility_bonus=0, constitution_bonus=0, intelligence_bonus=0, cunning_bonus=0, max_hp_bonus=0, str_acc_bonus=0, agi_acc_bonus=0, dodge_bonus=0, hp_regen_bonus=0, spellpower_bonus=0, magic_res_bonus=0, crit_chance_bonus=2, insane_res_bonus=0, phys_res_bonus=0, damage_bonus=4, accuracy_stat="strength")
     dagger = Entity(0, 0, '-', libtcod.sky, 'Dagger', equippable=equippable_component)
     player.inventory.add_item(dagger)
+
+    item_component = Item(use_function=add_oil, amount=50)
+    oil = Entity(0, 0, '0', libtcod.amber, 'Oil: 50', render_order=RenderOrder.ITEM, item=item_component)
+    player.inventory.add_item(oil)
 
     return player
 
