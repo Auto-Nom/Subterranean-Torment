@@ -4,8 +4,11 @@ Item functions for Subterranean Torment
 
 import libtcodpy as libtcod
 
+from entity import Entity
+
 from game_messages import Message
 from components.ai import ConfusedMonster
+from components.item import Item
 
 def heal(*args, **kwargs):
     """
@@ -23,6 +26,24 @@ def heal(*args, **kwargs):
         results.append({'consumed': True, 'message': Message('Your wounds start to feel better!', libtcod.green)})
 
     return results
+
+def add_oil(*args, **kwargs):
+    """
+    Adds oil to the lantern
+    """
+    entity = args[0]
+    amount = kwargs.get('amount')
+
+    results = []
+
+    if entity.lantern.fuel == entity.lantern.max_fuel:
+        results.append({'consumed': False, 'message': Message('The lantern is already full', libtcod.dark_amber)})
+    else:
+        results.extend(entity.lantern.add_fuel(amount))
+        results.append({'consumed': True, 'message': Message('Fuel was succesfully added to the lantern')})
+
+    return results
+
 
 def ranged_attack(*args, **kwargs):
     caster = args[0]

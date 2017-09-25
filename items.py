@@ -5,6 +5,7 @@ Items for Subterranean Torment
 import libtcodpy as libtcod
 
 from render_functions import RenderOrder
+from game_messages import Message
 from entity import Entity
 
 from components.item import Item
@@ -12,11 +13,12 @@ from components.equipment import EquipmentSlots
 from components.equippable import Equippable
 
 from random_utils import random_choice_from_dict, from_dungeon_level
-from item_functions import heal, cast_lightning, cast_fireball, cast_confuse
+from item_functions import heal, cast_lightning, cast_fireball, cast_confuse, add_oil
 
 def choose_item(x, y, dungeon_level):
     item_chances = {
         'healing_potion': 35,
+        'oil': 40,
         'sword': from_dungeon_level([[5, 4]], dungeon_level),
         'breastplate': from_dungeon_level([[5, 6]], dungeon_level),
         'shield': from_dungeon_level([[15, 8]], dungeon_level),
@@ -31,6 +33,9 @@ def choose_item(x, y, dungeon_level):
     if item_choice == 'healing_potion':
         item_component = Item(use_function=heal, amount=40)
         item = Entity(x, y, '!', libtcod.purple, 'Healing Potion', render_order=RenderOrder.ITEM, item=item_component)
+    elif item_choice == 'oil':
+        item_component = Item(use_function=add_oil, amount=50)
+        item = Entity(x, y, '0', libtcod.amber, 'Oil: 50', render_order=RenderOrder.ITEM, item=item_component)
     elif item_choice == 'sword':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND, str_acc_bonus=5, crit_chance_bonus=1, damage_bonus=10, accuracy_stat="strength")
         item = Entity(x, y, '/', libtcod.sky, 'Sword', equippable=equippable_component)

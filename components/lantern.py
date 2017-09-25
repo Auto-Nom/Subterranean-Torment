@@ -4,6 +4,10 @@ Lantern component for Subterranean Torment
 
 import libtcodpy as libtcod
 
+from entity import Entity
+from components.item import Item
+from item_functions import add_oil
+
 from game_messages import Message
 
 class Lantern:
@@ -46,8 +50,14 @@ class Lantern:
 
         self.fuel = round((self.fuel + amount), 2)
         if self.fuel >= self.max_fuel:
+            leftover = self.fuel - self.max_fuel
             self.fuel = self.max_fuel
             results.append({'message': Message('The lantern cannot hold any more fuel.', libtcod.dark_amber)})
+            if leftover:
+                results.append({'message': Message('{0} fuel was left over'.format(leftover), libtcod.dark_amber)})
+                item_component = Item(use_function=add_oil, amount=leftover)
+                leftover_oil = Entity(0, 0, '0', libtcod.amber, "Oil: {0}".format(leftover), item=item_component)
+                self.owner.inventory.add_item(leftover_oil)
         else:
             results.append({'message': Message('The lantern now has {0} fuel.'.format(self.fuel), libtcod.amber)})
         
