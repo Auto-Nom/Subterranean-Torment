@@ -18,10 +18,10 @@ from item_functions import heal, cast_lightning, cast_fireball, cast_confuse, ad
 def choose_item(x, y, dungeon_level):
     item_chances = {
         'healing_potion': 35,
-        'oil': 35,
+        'oil': 30,
         'laudanum': from_dungeon_level([[30, 2], [40, 4], [50, 6]], dungeon_level),
-        'sword': from_dungeon_level([[5, 4]], dungeon_level),
-        'breastplate': from_dungeon_level([[5, 6]], dungeon_level),
+        'sword': from_dungeon_level([[10, 4]], dungeon_level),
+        'breastplate': from_dungeon_level([[10, 6]], dungeon_level),
         'shield': from_dungeon_level([[15, 8]], dungeon_level),
         'lightning_scroll': from_dungeon_level([[25, 4]], dungeon_level),
         'fireball_scroll': from_dungeon_level([[25, 6]], dungeon_level),
