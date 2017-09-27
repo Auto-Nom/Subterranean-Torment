@@ -5,6 +5,9 @@ Inventory component for Subterranean Torment
 import libtcodpy as libtcod
 
 from game_messages import Message
+from components.item import Item
+from item_functions import add_oil
+from entity import Entity
 
 class Inventory:
     def __init__(self, capacity):
@@ -50,9 +53,16 @@ class Inventory:
                 kwargs = {**item_component.function_kwargs, **kwargs}
                 item_use_results = item_component.use_function(self.owner, **kwargs)
 
+                leftover = False
                 for item_use_result in item_use_results:
+                    if item_use_result.get('leftover_fuel'):
+                        leftover = item_use_result.get('leftover_fuel')
                     if item_use_result.get('consumed'):
                         self.remove_item(item_entity)
+                if leftover:
+                    item_component = Item(use_function=add_oil, amount=leftover)
+                    leftover_oil = Entity(self.owner.x, self.owner.y, '0', libtcod.amber, "Oil: {0}".format(leftover), item=item_component)
+                    self.owner.inventory.add_item(leftover_oil)
 
                 results.extend(item_use_results)
 

@@ -139,7 +139,7 @@ class GameMap:
         Randomly place monsters and items in a room
         """
         max_monsters_per_room = from_dungeon_level([[2, 1], [3, 4], [5, 6]], self.dungeon_level)
-        max_items_per_room = from_dungeon_level([[1, 1], [2, 4]], self.dungeon_level)
+        max_items_per_room = from_dungeon_level([[2, 1], [3, 4]], self.dungeon_level)
 
         # get a random number of monsters
         number_of_monsters = randint(0, max_monsters_per_room)
