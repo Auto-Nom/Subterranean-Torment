@@ -43,7 +43,7 @@ def choose_monster(x, y, dungeon_level):
     elif monster_choice == 'troll':
         fighter_component = Fighter('Troll', 'Monster', strength=12, agility=12, constitution=12, intelligence=10, cunning=10, base_hp=40, base_spellpower=10, base_damage=25, xp=150)
         ai_component = BasicMonster()
-        monster = Entity(x, y, 'T', libtcod.darkest_green, 'Ogre', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
+        monster = Entity(x, y, 'T', libtcod.darkest_green, 'Troll', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
     return monster
 
 
