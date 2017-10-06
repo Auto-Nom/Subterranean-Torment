@@ -229,61 +229,61 @@ def create_player(race, role):
     # Equipment
     if race == 'Human':
         equippable_component = Equippable(EquipmentSlots.HEAD, phys_res_bonus=5)
-        helm = Entity(0, 0, '^', libtcod.grey, 'Helm', equippable=equippable_component)
+        helm = Entity(0, 0, '^', libtcod.grey, 'Helm', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(helm)
         player.equipment.toggle_equip(helm)
     
     elif race == 'Orc':
         equippable_component = Equippable(EquipmentSlots.RING_FINGER_L,magic_res_bonus=5, damage_bonus=1, accuracy_stat="strength")
-        ring_l = Entity(0, 0, 'o', libtcod.sky, 'Ring', equippable=equippable_component)
+        ring_l = Entity(0, 0, 'o', libtcod.sky, 'Ring', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(ring_l)
         player.equipment.toggle_equip(ring_l)
 
         equippable_component = Equippable(EquipmentSlots.RING_FINGER_R,str_acc_bonus=5)
-        ring_r = Entity(0, 0, 'o', libtcod.sky, 'Ring', equippable=equippable_component)
+        ring_r = Entity(0, 0, 'o', libtcod.sky, 'Ring', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(ring_r)
         player.equipment.toggle_equip(ring_r)
 
     elif race == 'Gnome':
         equippable_component = Equippable(EquipmentSlots.ARMS, spellpower_bonus=5, phys_res_bonus=5)
-        bracers = Entity(0, 0, '=', libtcod.dark_sepia, 'Bracers', equippable=equippable_component)
+        bracers = Entity(0, 0, '=', libtcod.dark_sepia, 'Bracers', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(bracers)
         player.equipment.toggle_equip(bracers)
 
     elif race == 'Dwarf':
         equippable_component = Equippable(EquipmentSlots.LEGS, constitution_bonus=1, phys_res_bonus=5)
-        leggings = Entity(0, 0, '[', libtcod.darker_sepia, 'Leggings', equippable=equippable_component)
+        leggings = Entity(0, 0, '[', libtcod.darker_sepia, 'Leggings', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(leggings)
         player.equipment.toggle_equip(leggings)
 
     elif race == 'Elf':
         equippable_component = Equippable(EquipmentSlots.TORSO, dodge_bonus=3, phys_res_bonus=1)
-        tunic = Entity(0, 0, ']', libtcod.sepia, 'Tunic', equippable=equippable_component)
+        tunic = Entity(0, 0, ']', libtcod.sepia, 'Tunic', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(tunic)
         player.equipment.toggle_equip(tunic)
 
     if role == 'Ranger':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND, agi_acc_bonus=2, crit_chance_bonus=1, damage_bonus=3, accuracy_stat="agility")
         arrow_component = Item(use_function=ranged_attack, targeting=True, targeting_message=Message('Left-click an enemy to target it, or right-click to cancel.', libtcod.light_cyan))
-        bow = Entity(0, 0, ')', libtcod.brass, 'Bow', equippable=equippable_component, item=arrow_component)
+        bow = Entity(0, 0, ')', libtcod.brass, 'Bow', render_order=RenderOrder.ITEM, equippable=equippable_component, item=arrow_component)
         player.inventory.add_item(bow)
         player.equipment.toggle_equip(bow)
 
     elif role == 'Barbarian':
         equippable_component = Equippable(EquipmentSlots.FEET, magic_res_bonus=1, crit_chance_bonus=1, phys_res_bonus=3, damage_bonus=2, accuracy_stat="strength")
-        boots = Entity(0, 0, 'l', libtcod.darker_sky, 'Boots', equippable=equippable_component)
+        boots = Entity(0, 0, 'l', libtcod.darker_sky, 'Boots', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(boots)
         player.equipment.toggle_equip(boots)
 
     elif role == 'Fighter':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND, crit_chance_bonus=2, damage_bonus=5, accuracy_stat="strength")
-        sword = Entity(0, 0, '/', libtcod.light_azure, 'Sword', equippable=equippable_component)
+        sword = Entity(0, 0, '/', libtcod.light_azure, 'Sword', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(sword)
         player.equipment.toggle_equip(sword)
 
     elif role == 'Mage':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND, spellpower_bonus=5, insane_res_bonus=(-1), damage_bonus=1, accuracy_stat="agility")
-        staff = Entity(0, 0, '\\', libtcod.brass, 'Staff', equippable=equippable_component)
+        staff = Entity(0, 0, '\\', libtcod.brass, 'Staff', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(staff)
         player.equipment.toggle_equip(staff)
 
@@ -293,14 +293,14 @@ def create_player(race, role):
 
     elif role == 'Rogue':
         equippable_component = Equippable(EquipmentSlots.NECK, dodge_bonus=5)
-        amulet = Entity(0, 0, 'v', libtcod.dark_fuchsia, 'Amulet', equippable=equippable_component)
+        amulet = Entity(0, 0, 'v', libtcod.dark_fuchsia, 'Amulet', render_order=RenderOrder.ITEM, equippable=equippable_component)
         player.inventory.add_item(amulet)
         player.equipment.toggle_equip(amulet)
 
 
 
     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, strength_bonus=0, agility_bonus=0, constitution_bonus=0, intelligence_bonus=0, cunning_bonus=0, max_hp_bonus=0, str_acc_bonus=0, agi_acc_bonus=0, dodge_bonus=0, hp_regen_bonus=0, spellpower_bonus=0, magic_res_bonus=0, crit_chance_bonus=2, insane_res_bonus=0, phys_res_bonus=0, damage_bonus=4, accuracy_stat="strength")
-    dagger = Entity(0, 0, '-', libtcod.sky, 'Dagger', equippable=equippable_component)
+    dagger = Entity(0, 0, '-', libtcod.sky, 'Dagger', render_order=RenderOrder.ITEM, equippable=equippable_component)
     player.inventory.add_item(dagger)
 
     item_component = Item(use_function=add_oil, amount=50)
